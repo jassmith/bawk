@@ -8,17 +8,17 @@ namespace CodeRinseRepeat.Chicken
 
         static string Encode(char c)
         {
-            var @out = new char[10];
+            var @out = new StringBuilder();
 
             var i = 0;
             for (; i < 7; i++)
-                @out[i] = (c & (1 << i)) != 0 ? Char.ToUpper(ChickenBase[i]) : ChickenBase[i];
+                @out.Append((c & (1 << i)) != 0 ? Char.ToUpper(ChickenBase[i]) : ChickenBase[i]);
 
             // Is the high bit set?
             if ((c & (1 << i)) == 1)
-                @out[i] = '.';
+                @out.Append('.');
 
-            return new string(@out).TrimEnd();
+            return @out.ToString();
         }
 
         static char Decode(string @in)
