@@ -32,7 +32,7 @@ namespace CodeRinseRepeat.Chicken
             return (char) c;
         }
 
-        public static string Chicken (string body)
+        public static string DeChicken (string body)
         {
             var chickens = body.Split(' ');
             var @out = new StringBuilder();
@@ -46,7 +46,7 @@ namespace CodeRinseRepeat.Chicken
             return @out.ToString().TrimEnd();
         }
 
-        public static string DeChicken (string body)
+        public static string Chicken (string body)
         {
             var output = new StringBuilder();
             foreach (var c in body)
