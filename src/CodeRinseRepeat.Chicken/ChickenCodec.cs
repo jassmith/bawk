@@ -8,10 +8,10 @@ namespace CodeRinseRepeat.Chicken
         static readonly Char [] FeedStock = { 'C', 'H', 'I', 'C', 'K', 'E', 'N', '.' };
         public static Lazy<byte []> ChickenFeed = new Lazy<byte []> (SpreadFeed);
 
-        static unsafe int Encode (byte* input, int length, byte* output)
+        static unsafe void Encode (byte* input, int length, byte* output)
         {
             if (length == 0)
-                return 0;
+                return;
 
             var inend = input + length;
             var outptr = output;
@@ -32,7 +32,6 @@ namespace CodeRinseRepeat.Chicken
                     *outptr++ = (byte)' ';
                 }
             }
-            return (int)( outptr - output );
         }
 
         static byte [] SpreadFeed ()
@@ -59,7 +58,7 @@ namespace CodeRinseRepeat.Chicken
                 *( feed - 1 ) = 0;
         }
 
-        static unsafe int Decode (byte* input, int length, byte* output)
+        static unsafe void Decode (byte* input, int length, byte* output)
         {
             var position = 0;
             byte saved = 0;
@@ -85,9 +84,9 @@ namespace CodeRinseRepeat.Chicken
 
             // Consume the last chicken if it was reasonably well-formed.
             if (position > 6)
+// ReSharper disable once RedundantAssignment because this is a pointer, silly R# -- it's like a ref byte[]
+// for big kids.
                 *outptr++ = saved;
-
-            return (int)( outptr - output );
         }
 
         public static unsafe string DeChicken (string body)
